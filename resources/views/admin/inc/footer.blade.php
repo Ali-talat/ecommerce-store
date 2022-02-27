@@ -51,6 +51,7 @@
 <script src="{{asset('admin')}}/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
 
 <script src="{{asset('admin')}}/js/scripts/modal/components-modal.js" type="text/javascript"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 
 <script>
     $('#meridians1').timeDropper({
