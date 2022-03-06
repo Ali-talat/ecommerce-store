@@ -36,7 +36,7 @@ class SettingController extends Controller
     public function updateShipping(SettingRequest  $request ,$id){
         try{
 
-            return $setting = Setting::find($id);
+            $setting = Setting::find($id);
             DB::beginTransaction();
             $setting ->update($request->all());
             $setting ->value = $request->value ;

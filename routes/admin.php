@@ -22,27 +22,61 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
-###################### there is prifex admin for this file ##########
+###################### there is prefix admin for this file ##########
 
 
 Route::group(
     [
         
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-    ], function(){ 
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){ 
     
 
-        Route::group(['middleware'=>'auth:admin', 'namespace'=>'admin' ,'prifex'=>'admin' ] ,function(){
+        Route::group(['middleware'=>'auth:admin', 'namespace'=>'admin' ,'prefix'=>'admin' ] ,function(){
 
             Route::get('/home','DashboradController@index')->name('dashborad.index');
 
-            Route::group(['prifex'=>'setting'],function(){
+
+             ###################### start setting route ##########
+
+            Route::group(['prefix'=>'setting'],function(){
                 
                 Route::get('/shipping/{type}','SettingController@editShipping')->name('shipping.edit');
                 Route::post('/shipping/{id}','SettingController@updateShipping')->name('shipping.update');
 
             });
+
+             ###################### start setting route ##########
+
+
+             ###################### start profile route ##########
+
+
+            Route::group(['prefix'=>'profile'],function(){
+                
+                Route::get('/edit/{id}','ProfileController@editProfile')->name('profile.edit');
+                Route::post('/update/{id}','ProfileController@updateProfile')->name('profile.update');
+
+            });
+
+             ###################### end profile route ##########
+
+
+             ###################### start categorys route ##########
+
+            Route::group(['prefix'=>'category'],function(){
+                
+                Route::get('/','categoryController@index')->name('category.index');
+                Route::get('/create','categoryController@create')->name('category.create');
+                Route::post('/store','categoryController@store')->name('category.store');
+                Route::get('/edit/{id}','categoryController@edit')->name('category.edit');
+                Route::post('/update/{id}','categoryController@update')->name('category.update');
+                Route::get('/delete/{id}','categoryController@delete')->name('category.delete');
+
+
+            });
+             ###################### end categorys route ##########
+
             
 
         });

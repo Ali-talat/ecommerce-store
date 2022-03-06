@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('test', function () {
+   $x = Category::find(2);
+   $x->makeVisible(['translation']);
+   return $x ;
 });
 
 
