@@ -14,14 +14,15 @@ class categoryController extends Controller
 {
     public function index(){
 
-        $categories = Category::where('parent_id',null)->paginate(PAGINATION_COUNT);
+        $categories = Category::orderBy('id','DESC')->paginate(PAGINATION_COUNT);
         return \view('admin.category.index',\compact('categories'));
     }
 
     public function create(){
 
-        
-        return view('admin.category.create');
+        $categories = Category::select('id','parent_id')->get();
+
+        return view('admin.category.create',\compact('categories'));
     }
 
     public function store(categoryRequest $request){
@@ -31,17 +32,25 @@ class categoryController extends Controller
         }else{
             $request->request->add(['active'=>1]);
         }
-        $slugArray = \explode(' ' ,$request->name);
-        $slugArray = implode('-' , $slugArray);
+        $slug = \explode(' ' ,$request->name);
+        $slug = implode('-' , $slug);
+        $request->request->add(['slug'=> $slug]);
         
-        $request->request->add(['slug'=> $slugArray]);
+        if($request->type == 1){
+            $request->request->add(['parent_id'=> null]);
+
+        }
+        
+
         $category= Category::create($request->except('_token'));
         $category -> name = $request->name ;
         $category->save();
-        return redirect()->route('category.index')->with(['success' => 'تم ألتحديث بنجاح']);
+        return redirect()->route('category.index')->with(['success' => 'تم الحفظ بنجاح']);
 
         
     }
+
+
 
     public function edit( $id){
 
@@ -49,12 +58,15 @@ class categoryController extends Controller
         return \view('admin.category.edit',\compact('category'));
     }
 
-    public function update(categoryRequest $request , $id){
 
+
+    public function update(categoryRequest $request , $id){
+        
 
         try{
           $category = Category::find($id);
 
+          
 
         if (!$category)
             return redirect()->back()->with(['error' => 'هذا القسم غير موجود']);
@@ -63,16 +75,20 @@ class categoryController extends Controller
             $request->request->add(['active' => 0]);
         else
             $request->request->add(['active' => 1]);
+            
             DB::beginTransaction();
         
         $category->update($request->all());
         
         
         //save translations
-        DB::table('category_translations')
-            ->where("category_id",  $id)
-            ->limit(1)
-            ->update(['name'=> $request->name ]);
+
+        $category->name = $request->name ;
+        $category->save();
+        // DB::table('category_translations')
+        //     ->where("category_id",  $id)
+        //     ->limit(1)
+        //     ->update(['name'=> $request->name ]);
         
         DB::commit();
 
@@ -80,15 +96,29 @@ class categoryController extends Controller
         return redirect()->route('category.index')->with(['success' => 'تم ألتحديث بنجاح']);
     }catch (Exception $ex) {
         DB::rollback();
-        return $ex ;
         return redirect()->route('category.edit')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
     }
 
     }
 
+
+
     public function delete($id){
-        Category::find($id)->delete();
-        return redirect()->route('category.index')->with(['success' => 'تم ألتحديث بنجاح']);
+
+        try{
+
+            $category = Category::find($id);
+    
+            if (!$category)
+                    return redirect()->route('category.index')->with(['error' => 'هذا القسم غير موجود ']);
+    
+            $category->delete();
+            return redirect()->route('category.index')->with(['success' => 'تم الحذف بنجاح']);
+        }catch(Exception $ex){
+            return redirect()->route('category.index')->with(['error' => 'حدث مشكله ما يرجي المحاوله لاحقا ']);
+
+
+        }
 
     }
 }

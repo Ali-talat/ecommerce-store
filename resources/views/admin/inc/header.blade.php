@@ -56,6 +56,7 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('admin/'.getDefulteLang().'/style-rtl.css')}}">
     <!-- END Custom CSS-->
+    
 
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <style>

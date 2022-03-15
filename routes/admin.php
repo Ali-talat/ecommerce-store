@@ -77,6 +77,40 @@ Route::group(
             });
              ###################### end categorys route ##########
 
+
+            
+
+
+             ###################### start brands route ################################
+
+            Route::group(['prefix'=>'brands'],function(){
+                
+                Route::get('/','brandsController@index')->name('brand.index');
+                Route::get('/create','brandsController@create')->name('brand.create');
+                Route::post('/store','brandsController@store')->name('brand.store');
+                Route::get('/edit/{id}','brandsController@edit')->name('brand.edit');
+                Route::post('/update/{id}','brandsController@update')->name('brand.update');
+                Route::get('/delete/{id}','brandsController@delete')->name('brand.delete');
+
+
+            });
+             ###################### end tags route ##################################
+
+
+             Route::group(['prefix'=>'tags'],function(){
+                
+                Route::get('/','tagController@index')->name('tag.index');
+                Route::get('/create','tagController@create')->name('tag.create');
+                Route::post('/store','tagController@store')->name('tag.store');
+                Route::get('/edit/{id}','tagController@edit')->name('tag.edit');
+                Route::post('/update/{id}','tagController@update')->name('tag.update');
+                Route::get('/delete/{id}','tagController@delete')->name('tag.delete');
+
+
+            });
+             ###################### end tags route ##################################
+             
+
             
 
         });

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class categoryRequest extends FormRequest
+class subCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class categoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return \true;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class categoryRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            // 'type'=>'required|in:1,2',
+            'parent_id'=>'required|exists:categories,id',
         ];
     }
 }

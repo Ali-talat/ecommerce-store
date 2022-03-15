@@ -48,7 +48,7 @@
                                           enctype="multipart/form-data">
                                         @csrf
 
-                                        <input name="id" value="" type="hidden">
+                                        
 
                                         <div class="form-group">
                                             <div class="text-center">
@@ -74,7 +74,7 @@
 
                                             <h4 class="form-section"><i class="ft-home"></i> بيانات القسم </h4>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="projectinput1"> اسم القسم
                                                              </label>
@@ -87,16 +87,39 @@
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>
+                                                    
+                                                </div>
+                                                <div class="row hidden" id="cats_list" >
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> اختر القسم الرئيسي
+                                                            </label>
+                                                            <select name="parent_id" style="width: 200px" class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر القسم ">
+                                                                    @if($categories && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}">
+                                                                                
+                                                                                @if ($category->parent_id == null)
+                                                                                    {{'-'.$category -> name}}
+
+                                                                                @else
+                                                                                    {{'--'.$category -> name}}
+                                                                                @endif
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('parent_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                
-
-
-
-
-
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-1">
                                                         <input type="checkbox" value="1"
@@ -111,7 +134,56 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                
+
+
+
+
+
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="radio" id="name"
+                                                            class="switchery _radio"   
+                                                               placeholder="  "
+                                                               value="1"
+                                                               name="type"
+                                                               checked
+                                                               data-color="success">
+                                                               <label for="projectinput1"> قسم رئيسي
+                                                            </label>
+                                                        @error("type")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="radio" id="name"
+                                                            class="switchery _radio"
+                                                               placeholder="  "
+                                                               value="2"
+                                                               name="type"
+                                                               data-color="success">
+                                                               <label for="projectinput1"> قسم فرعي
+                                                            </label>
+                                                        @error("type")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
+                                                
+
+
+
+
+
+                                            </div>
+                                            
                                         </div>
 
 
@@ -133,8 +205,24 @@
                 </div>
             </section>
             <!-- // Basic form layout section end -->
+
         </div>
     </div>
 </div>
 
     @stop
+
+@section('script')
+
+<script>
+    $('._radio').click(
+        function(){
+            if (this.checked && this.value == '2') {  // 1 if main cat - 2 if sub cat
+                $('#cats_list').removeClass('hidden');
+            }else{
+                $('#cats_list').addClass('hidden');
+            }
+        });
+</script>
+    
+@endsection
