@@ -94,7 +94,7 @@ Route::group(
 
 
             });
-             ###################### end tags route ##################################
+             ###################### start tags route ##################################
 
 
              Route::group(['prefix'=>'tags'],function(){
@@ -109,6 +109,22 @@ Route::group(
 
             });
              ###################### end tags route ##################################
+
+              ###################### start product route ##################################
+
+
+              Route::group(['prefix'=>'product'],function(){
+                
+                Route::get('/','ProductController@index')->name('product.index');
+                Route::get('/create','ProductController@create')->name('product.create');
+                Route::post('/store','ProductController@store')->name('product.store');
+                Route::get('/edit/{id}','ProductController@edit')->name('product.edit');
+                Route::post('/update/{id}','ProductController@update')->name('product.update');
+                Route::get('/delete/{id}','ProductController@delete')->name('product.delete');
+
+
+            });
+             ###################### end product route ##################################
              
 
             

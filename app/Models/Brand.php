@@ -23,6 +23,8 @@ class Brand extends Model
     public function scopeActive($query){
         return $query -> where('active',1) ;
     }
+
+    
     public function getActive(){
         return  $this -> active  == 0 ?  'غير مفعل'   : 'مفعل' ;
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enumerations\CategoryType;
 use App\Http\Requests\categoryRequest;
 use App\Models\Category;
 use App\Models\CategoryTranslation;
@@ -36,7 +37,7 @@ class categoryController extends Controller
         $slug = implode('-' , $slug);
         $request->request->add(['slug'=> $slug]);
         
-        if($request->type == 1){
+        if($request->type == CategoryType::mainCat){
             $request->request->add(['parent_id'=> null]);
 
         }

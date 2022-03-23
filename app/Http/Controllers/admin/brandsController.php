@@ -143,6 +143,7 @@ class brandsController extends Controller
             if (!$brand)
                 return redirect()->route('admin.brands')->with(['error' => 'هذا الماركة غير موجود ']);
 
+            $brand->Translation->delete();
             $brand->delete();
             $img = $brand->photo;
             $img= Str::after($img, 'brands/');
