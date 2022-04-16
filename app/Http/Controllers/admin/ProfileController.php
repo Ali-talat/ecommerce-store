@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\adminLoginRequest;
-use App\Http\Requests\adminProfileRequest;
+use App\Http\Requests\AdminProfileRequest;
 use App\Models\Admin;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateProfile(adminProfileRequest $request , $id){
+    public function updateProfile(AdminProfileRequest $request , $id){
         
        
         try{

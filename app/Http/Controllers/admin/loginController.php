@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\adminLoginRequest;
+use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Http\Request;
 
-class loginController extends Controller
+class LoginController extends Controller
 {
     public function login(){
         if(\auth()->guard('admin')->check()){
@@ -15,7 +15,7 @@ class loginController extends Controller
         return \view('admin.auth.login');
     }
 
-    public function postLogin(adminLoginRequest $request){
+    public function postLogin(AdminLoginRequest $request){
         
 
         $remember_me = $request->has('remember_me') ? true : false ;

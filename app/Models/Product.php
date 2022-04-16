@@ -39,7 +39,7 @@ class Product extends Model
         'manage_stock',
         'qty',
         'in_stock',
-        'is_active'
+        'active'
     ];
 
     /**
@@ -50,7 +50,7 @@ class Product extends Model
     protected $casts = [
         'manage_stock' => 'boolean',
         'in_stock' => 'boolean',
-        'is_active' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
@@ -87,7 +87,7 @@ class Product extends Model
 
     public function getActive()
     {
-        return $this->is_active == 0 ? 'غير مفعل' : 'مفعل';
+        return $this->active == 0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function categories()
@@ -97,7 +97,7 @@ class Product extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', 1);
+        return $query->where('active', 1);
     }
 
     public function tags()

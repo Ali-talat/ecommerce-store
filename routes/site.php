@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(
+    [
+        
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){ 
+    
+        
+        Route::group(['middleware'=>'auth:user' , 'prefix'=>'site'],function(){
+            
+
+            Route::get('xx',function(){
+                return 'yes';
+            });
+            
+        });
+        Route::get('logout','Auth\LoginController@logout')->name('logout');
+        Route::get('/','front\SiteController@index')->name('site.index');
+
+
+        Route::group(['middleware'=>'guest' , 'namespace'=> 'Auth','prefix'=>'site'],function(){
+            // Route::get('login','LoginController@showLoginForm')->name('login');
+            // Route::post('login','loginController@login')->name('front.post.login');
+
+            
+        });
+
+        
+
+
+    });
+
+
+
+
 
 
 // Auth::routes();

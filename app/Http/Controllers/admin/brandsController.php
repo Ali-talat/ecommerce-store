@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
-class brandsController extends Controller
+class BrandsController extends Controller
 {
 
     public function index()

@@ -111,16 +111,7 @@
                                                             @error('categories.*')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
-                                                            @if($errors->has('categories.*'))
-                                                                <h1>There is an error in your input array</h1>
-                                                                <ul>
-                                                                @foreach($errors->get('categories.*') as $errors)
-                                                                    @foreach($errors as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                @endforeach
-                                                                </ul>
-                                                            @endif
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -137,7 +128,7 @@
                                                                     @endif
                                                                 </optgroup>
                                                             </select>
-                                                            @error('tags')
+                                                            @error('tags.*')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>

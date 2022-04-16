@@ -33,6 +33,7 @@
 
 <script src="{{asset('admin')}}/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <script src="{{asset('admin')}}/js/scripts/pages/chat-application.js" type="text/javascript"></script>
+<script src="{{asset('admin/vendors/js/extensions/dropzone.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN MODERN JS-->
 <script src="{{asset('admin')}}/js/core/app-menu.js" type="text/javascript"></script>

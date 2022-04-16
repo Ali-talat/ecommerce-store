@@ -18,12 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('test', function () {
-   $x = Category::find(2);
-   $x->makeVisible(['translation']);
-   return $x ;
+   return view('front.index');
 });
 
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
